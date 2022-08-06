@@ -18,7 +18,7 @@ Ketik ${usedPrefix}ao untuk bantuan
 `.trim()
     conn.asahotak[id] = [
         await conn.reply(m.chat, caption, m),
-        json, poin,
+        json,
         setTimeout(() => {
             if (conn.asahotak[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, conn.asahotak[id][0])
             delete conn.asahotak[id]
