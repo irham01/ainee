@@ -1,7 +1,6 @@
 let fetch = require('node-fetch')
 
 let timeout = 180000
-let poin = 500
 let handler = async (m, { conn, usedPrefix }) => {
     conn.lengkapikalimat = conn.lengkapikalimat ? conn.lengkapikalimat : {}
     let id = m.chat
@@ -15,7 +14,6 @@ let handler = async (m, { conn, usedPrefix }) => {
 
 Timeout *${(timeout / 1000).toFixed(2)} detik*
 Ketik ${usedPrefix}leka untuk bantuan
-Bonus: ${poin} XP
 `.trim()
     conn.lengkapikalimat[id] = [
         await conn.reply(m.chat, caption, m),
