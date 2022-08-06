@@ -145,11 +145,11 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       npmdesc: package.description,
       version: package.version,
       github: package.homepage ? package.homepage.url || package.homepage : '[unknown github url]',
-      limit, name, weton, week, date, dateIslamic, wib, wit, wita, time, totalreg, rtotalreg, role,
+      limit, name, weton, week, date, dateIslamic, wib, wit, wita, time, totalreg, rtotalreg,
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    conn.sendHydrated(m.chat, text.trim(), 'Ⓟ premium | Ⓛ limit', null, 'https://aiinne.github.io/', 'Website', '', '', [
+    conn.sendHydrated(m.chat, text.trim(), 'Ⓟ premium | Ⓛ limit', null, 'https://instagram.com/irhamibra', 'Instagram', '', '', [
       ['Donate', '/donasi'],
       ['Sewa Bot', '/sewa'],
       ['Owner', '/owner']
