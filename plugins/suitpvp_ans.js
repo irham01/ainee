@@ -27,15 +27,13 @@ klik wa.me/${conn.user.jid.split`@`[0]}`, m.chat,
         }
       )
 
-      if (!room.pilih) this.sendButton(room.p, `Silahkan pilih Menang +${room.poin}XP\nKalah -${room.poin_lose}XP`, wm, null, [[ 'Batu🗿', 'Batu'], ['Kertas📄', 'Kertas'], ['Gunting✂️', 'Gunting']], m)
-      if (!room.pilih2) this.sendButton(room.p2, `Silahkan pilih Menang +${room.poin}XP\nKalah -${room.poin_lose}XP`, wm, null, [['Batu🗿', 'Batu'], ['Kertas📄', 'Kertas'], ['Gunting✂️', 'Gunting']], m)
+      if (!room.pilih) this.sendButton(room.p, `Silahkan pilih Menang +${room.poin}XP\nKalah`, wm, null, [[ 'Batu🗿', 'Batu'], ['Kertas📄', 'Kertas'], ['Gunting✂️', 'Gunting']], m)
+      if (!room.pilih2) this.sendButton(room.p2, `Silahkan pilih Menang +${room.poin}XP\nKalah`, wm, null, [['Batu🗿', 'Batu'], ['Kertas📄', 'Kertas'], ['Gunting✂️', 'Gunting']], m)
       room.waktu_milih = setTimeout(() => {
         if (!room.pilih && !room.pilih2) this.reply(m.chat, `Kedua pemain tidak niat main,\nSuit dibatalkan`)
         else if (!room.pilih || !room.pilih2) {
           win = !room.pilih ? room.p2 : room.p
           this.reply(m.chat, `@${(room.pilih ? room.p2 : room.p).split`@`[0]} tidak memilih suit, game berakhir`, m)
-          db.data.users[win == room.p ? room.p : room.p2].exp += room.poin
-          db.data.users[win == room.p ? room.p2 : room.p].exp -= room.poin_lose
         }
         delete this.suit[room.id]
         return !0
@@ -73,12 +71,10 @@ klik wa.me/${conn.user.jid.split`@`[0]}`, m.chat,
       this.reply(room.asal, `
 _*Hasil Suit*_${tie ? '\nSERI' : ''}
 
-@${room.p.split`@`[0]} (${room.text}) ${tie ? '' : room.p == win ? ` Menang \n+${room.poin}XP` : ` Kalah \n-${room.poin_lose}XP`}
-@${room.p2.split`@`[0]} (${room.text2}) ${tie ? '' : room.p2 == win ? ` Menang \n+${room.poin}XP` : ` Kalah \n-${room.poin_lose}XP`}
+@${room.p.split`@`[0]} (${room.text}) ${tie ? '' : room.p == win ? ` Menang \n+${room.poin}XP` : ` Kalah`}
+@${room.p2.split`@`[0]} (${room.text2}) ${tie ? '' : room.p2 == win ? ` Menang \n+${room.poin}XP` : ` Kalah`}
 `.trim(), m, { mentions: [room.p, room.p2] } )
       if (!tie) {
-        db.data.users[win == room.p ? room.p : room.p2].exp += room.poin
-        db.data.users[win == room.p ? room.p2 : room.p].exp += room.poin_lose
 
       }
       delete this.suit[room.id]
