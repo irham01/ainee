@@ -113,10 +113,6 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       chat.antiToxic = isEnable
       break
-    case 'autolevelup':
-      isUser = true
-      user.autolevelup = isEnable
-      break
     case 'mycontact':
     case 'mycontacts':
     case 'whitelistcontact':
@@ -200,7 +196,6 @@ List option:
 | antitoxic
 | antisticker
 | autosticker
-| autolevelup
 | detect
 | document
 | whitelistmycontacts
