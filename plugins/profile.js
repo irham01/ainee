@@ -1,5 +1,4 @@
 let PhoneNumber = require('awesome-phonenumber')
-let levelling = require('../lib/levelling')
 const axios = require ("axios")
 const fetch = require("node-fetch")
 let handler = async (m, { conn, text, usedPrefix, command }) => {
@@ -39,14 +38,10 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     let participants = m.isGroup ? groupMetadata.participants : []
 	let users = m.isGroup ? participants.find(u => u.jid == who) : {}
 	let number = who.split('@')[0]
-	//let pp = await conn.updateProfilePicture(who)
 	let about = (await conn.fetchStatus(who).catch(console.error) || {}).status || ''
-    let { name, pasangan, limit, exp, money, bank, lastclaim, premiumDate, premium, registered, regTime, age, level, role } = global.db.data.users[who]
+    let { name, pasangan, limit, premiumDate, premium, registered, regTime, age } = global.db.data.users[who]
     let now = new Date() * 1
-    let { min, xp, max } = levelling.xpRange(level, global.multiplier)
     let username = conn.getName(who)
-   // let buffer = await getBuffer(pp)
-    let math = max - xp
     let prem = global.prems.includes(who.split`@`[0])
     let jodoh = `Berpacaran @${pasangan.split`@`[0]}`
     let str = `
@@ -54,14 +49,10 @@ Name: ${username} ${registered ? '(' + name + ') ': ''}(@${who.split`@`[0]})${ab
 Status: ${pasangan ? jodoh : 'Jomblo' }
 Number: ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}
 Link: https://wa.me/${who.split`@`[0]}${registered ? '\nAge: ' + age : ''}
-XP: TOTAL ${exp} (${exp - min} / ${xp}) [${math <= 0 ? `Ready to *${usedPrefix}levelup*` : `${math} XP left to levelup`}]
-Level: ${level}
-Role: *${role}*
 Limit: ${limit}
-Money: ${money}
 Registered: ${registered ? 'Yes (' + new Date(regTime) + ')': 'No'}
 Premium: ${premium ? 'Yes' : 'No'}
-Kadaluarsa Premium: ${(premiumDate - now) > 1 ? msToDate(premiumDate - now) : '*Tidak diatur expired premium!*'}${lastclaim > 0 ? '\nLast Claim: ' + new Date(lastclaim) : ''}
+Kadaluarsa Premium: ${(premiumDate - now) > 1 ? msToDate(premiumDate - now) : '*Tidak diatur expired premium!*'}
 `.trim()
      let mentionedJid = [who]
  	conn.sendFile(m.chat, pp, 'pp.jpg', str, m, false, { contextInfo: { mentionedJid: conn.parseMention(str) }})
