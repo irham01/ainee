@@ -3,7 +3,6 @@ let fs = require('fs')
 let path = require('path')
 let fetch = require('node-fetch')
 let moment = require('moment-timezone')
-let levelling = require('../lib/levelling')
 let tags = {
   'rpgabsen': 'Rpg-Absen',
   'rpg': 'Rpg',
@@ -46,8 +45,6 @@ Hai, %ucapan %name! 👋
 *Uptime:* %uptime (%muptime)
 
 *Limit:* %limit
-*Level:* %level
-*XP:* %exp
 %readmore`.trimStart(),
   header: ' *%category*',
   body: ' • %cmd %islimit %isPremium',
@@ -60,8 +57,7 @@ ${'```%npmdesc```'}
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     let package = JSON.parse(await fs.promises.readFile(path.join(__dirname, '../package.json')).catch(_ => '{}'))
-    let { exp, limit, level, role } = global.db.data.users[m.sender]
-    let { min, xp, max } = levelling.xpRange(level, global.multiplier)
+    let { limit } = global.db.data.users[m.sender]
     let name = await conn.getName(m.sender)
     let d = new Date(new Date + 3600000)
     let locale = 'id'
@@ -174,8 +170,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
                             hydratedFooterText:'Ⓟ premium | Ⓛ limit',
                             hydratedButtons: [{
                                 urlButton: {
-                                    displayText: 'Website',
-                                    url: 'https://Ainebot.github.io/'
+                                    displayText: 'Instagram',
+                                    url: 'https://instagram.com/irhamibra'
                                 }
                             }, {
                                 quickReplyButton: {
