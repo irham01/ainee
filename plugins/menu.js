@@ -4,8 +4,6 @@ let path = require('path')
 let fetch = require('node-fetch')
 let moment = require('moment-timezone')
 let tags = {
-  'rpgabsen': 'Rpg-Absen',
-  'rpg': 'Rpg',
   'game': 'Game',
   'xp': 'Exp, Limit & Pay',
   'sticker': 'Sticker',
@@ -40,8 +38,7 @@ Hai, %ucapan %name! 👋
 %wib WIB
 %wita WITA
 %wit WIT
-*Hari:* %week
-*Tanggal:* %date
+%week , %date
 *Uptime:* %uptime (%muptime)
 
 *Limit:* %limit
