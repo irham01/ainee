@@ -10,8 +10,7 @@ handler.before = async function (m) {
         let json = JSON.parse(JSON.stringify(this.tebakkimia[id][1]))
         // m.reply(JSON.stringify(json, null, '\t'))
         if (m.text.toLowerCase() == json.unsur.toLowerCase().trim()) {
-            global.db.data.users[m.sender].exp += this.tebakkimia[id][2]
-            m.reply(`*Benar!*\n+${this.tebakkimia[id][2]} XP`)
+            m.reply(`*Benar!*`)
             clearTimeout(this.tebakkimia[id][3])
             delete this.tebakkimia[id]
         } else if (similarity(m.text.toLowerCase(), json.unsur.toLowerCase().trim()) >= threshold) m.reply(`*Dikit Lagi!*`)
