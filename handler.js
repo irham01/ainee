@@ -27,7 +27,6 @@ module.exports = {
                 let user = global.db.data.users[m.sender]
                 if (typeof user !== 'object') global.db.data.users[m.sender] = {}
                 if (user) {
-                    if (!isNumber(user.exp)) user.exp = 0
                     if (!isNumber(user.limit)) user.limit = 1000
                     if (!isNumber(user.joinlimit)) user.joinlimit = 1
                     if (!('registered' in user)) user.registered = false
@@ -45,7 +44,6 @@ module.exports = {
                     if (!isNumber(user.bannedDate)) user.bannedDate = 0
                     if (!isNumber(user.warn)) user.warn = 0
                 } else global.db.data.users[m.sender] = {
-                    exp: 0,
                     limit: 1000,
                     joinlimit: 1,
                     registered: false,
@@ -147,7 +145,6 @@ module.exports = {
             if (m.chat.endsWith('broadcast') || m.key.remoteJid.endsWith('broadcast')) return // Supaya tidak merespon di status
             let blockList = await conn.fetchBlocklist()
             if (blockList?.includes(m.sender)) return
-            m.exp += Math.ceil(Math.random() * 10)
 
             let usedPrefix
             let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
@@ -342,7 +339,6 @@ module.exports = {
             let user, stats = global.db.data.stats
             if (m) {
                 if (m.sender && (user = global.db.data.users[m.sender])) {
-                    user.exp += m.exp
                     user.limit -= m.limit * 1
                 }
 
